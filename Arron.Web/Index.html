@@ -1,0 +1,283 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="css/site.css" rel="stylesheet" />
+    <script src="js/jquery-1.7.1.min.js"></script>
+    <script src="js/jquery.json-2.4.js"></script>
+    <script src="js/AppConfig.js"></script>
+    <script src="js/Header.js"></script>
+    <script src="js/NetCom.js"></script>
+    <script src="js/AuthNet.js"></script>
+    <script src="js/HqNet.js"></script>
+    <script src="js/Hq.js"></script>
+    <script type="text/javascript">
+        var isLogin = false, isValid = false;
+        var c, mtList, beginTime, endTime;
+        function valid() {//验证
+            var userName = window.Login.userName, passWord = window.Login.passWord, sAuth = new window.AuthNet();
+            var req = new window.AuthReq();
+            req.Head.Type = window.AuReqType.Auth;
+            req.UName = userName;
+            req.Pwd = passWord;
+            req.SucCallBack = function (data) {
+                endTime = new Date();
+                //console.log(data.Data);
+                isLogin = true;
+                var xmlobject = (new DOMParser()).parseFromString(data.Data, "text/xml");
+                var xml = $(xmlobject);
+
+                //User  /UserR R/  /Ser S/ 
+                var u = window.XmlHelper(xmlobject, "User");
+                var r = window.XmlHelper(xmlobject, "UserR MR R");
+                var s = window.XmlHelper(xmlobject, "Ser S");
+                var n = window.XmlHelper(xmlobject, "UserR FC R");
+
+                if (!window.AuthHelper) { window.AuthHelper = {}; }
+                c = window.HqServer = new window.HqCollections(userName, passWord, u, r, s);
+                if (window.AuthHelper.SubMarket) { c.SubMarket = window.AuthHelper.SubMarket; }
+                if (window.AuthHelper.mList) { c.mList = window.AuthHelper.mList; }
+
+                $("#spValid").html("认证成功，耗时：" + (endTime - beginTime) + "ms");
+                $("#btnLogin").removeAttr("disabled");
+            }
+            req.ErrCallBack = function (data) {
+                alert(data.Data);
+            };
+            beginTime = new Date();
+            sAuth.SendReq(req);
+        }
+
+        function getMarket() {//行情登录
+            if (!isLogin) {
+                alert("请先进行认证");
+                return;
+            }
+            beginTime = new Date();
+            c.doHqAuth(mtF, function () { alert("报错了"); });
+        }
+
+        function getTreqSbList() {
+            if (!isValid) {
+                alert("请先登录行情");
+                return;
+            }
+            beginTime = new Date();
+            c.doTreqSbList(function (data) {
+                endTime = new Date();
+                data = $.toJSON(data);
+                $("#spTreqSbList").html("有排序的行情数据获取成功，耗时：" + (endTime - beginTime) + "ms" + "  数据大小:" + data.length);
+                $("#dvTreqSbList").html(data);
+            }, function () { alert("报错了"); });
+        }
+
+        function getSbReport() {//获取有排序的行情
+            if (!isValid) {
+                alert("请先登录行情");
+                return;
+            }
+            beginTime = new Date();
+            c.doReqSbReport(function (data) {
+                endTime = new Date();
+                data = $.toJSON(data);
+                $("#spSbReport").html("有排序的行情数据获取成功，耗时：" + (endTime - beginTime) + "ms" + "  数据大小:" + data.length);
+                $("#dvSbReport").html(data);
+            }, function () { alert("报错了"); });
+        }
+
+        function getTrend() {//走势图数据
+            if (!isValid) {
+                alert("请先登录行情");
+                return;
+            }
+            beginTime = new Date();
+            c.doReqTrend(function (data) {
+                endTime = new Date();
+                data = $.toJSON(data);
+                $("#spTrend").html("走势图数据数据获取成功，耗时：" + (endTime - beginTime) + "ms" + "  数据大小:" + data.length);
+                $("#dvTrend").html(data);
+            }, function () { alert("报错了"); });
+        }
+
+        function getDay() {//获取K线图数据
+            if (!isValid) {
+                alert("请先登录行情");
+                return;
+            }
+            beginTime = new Date();
+            c.doReqSbKLine(function (data) {
+                endTime = new Date();
+                data = $.toJSON(data);
+                $("#spDay").html("K线图数据数据获取成功，耗时：" + (endTime - beginTime) + "ms" + "  数据大小:" + data.length);
+                $("#dvDay").html(data);
+            }, function () { alert("报错了"); });
+
+        }
+
+        var mtF = function (data) {
+            endTime = new Date();
+            isValid = true;
+            $("#spMarket").html("行情登录成功，耗时：" + (endTime - beginTime) + "ms");
+            mtList = [];
+            $.each(c.UserR, function (R, Key) {
+                if (R.M) mtList.push(R.M);
+            });
+        };
+
+        function getStockID() {
+            return $.trim($("#txtStockID").val());
+        }
+
+        function getHTMarket() {//行情数据
+            var data = {
+                curPage: 1,
+                field: '22:24:2:10:11:9:12:14:6:23:21:3:1:8:13:15:17:18:19:31:27',
+                funcno: '21000',
+                order: 0,
+                rowOfPage: 10,
+                sort: 1,
+                type: '0:2:9:18',
+                version: 1
+            };
+
+            beginTime = new Date();
+            $.ajax({
+                url: "http://211.151.138.28/market/json",
+                data: data,
+                dataType: "json",
+                success: function (data) {
+                    endTime = new Date();
+                    data = $.toJSON(data);
+                    $("#spHTMarket").html("行情数据获取成功，耗时：" + (endTime - beginTime) + "ms" + "  数据大小:" + data.length);
+                    $("#dvHTMarket").html(data);
+                },
+                eror: function () {
+                }
+            });
+        }
+
+        function getHTTrend() {//走势图数据
+            var stockID = getStockID();
+            var array = stockID.split(':');
+
+            var data = {
+                funcno: '20001',
+                market: array[0],
+                start: 0,
+                stock_code: array[1],
+                version: 1
+            };
+            beginTime = new Date();
+            $.ajax({
+                url: "http://211.151.138.28/market/json",
+                data: data,
+                dataType: "json",
+                success: function (data) {
+                    endTime = new Date();
+                    data = $.toJSON(data);
+                    $("#spHTTrend").html("走势图数据获取成功，耗时：" + (endTime - beginTime) + "ms" + "  数据大小:" + data.length);
+                    $("#dvHTTrend").html(data);
+                },
+                eror: function () {
+                }
+            });
+        }
+
+        function getHTDay() {//获取K线数据
+            beginTime = new Date();
+            var data = {
+                count: 200,
+                funcno: '20009',
+                market: 'SZ',
+                stock_code: '399001',
+                type: 'day',
+                version: '1'
+            };
+            $.ajax({
+                url: "http://211.151.138.28/market/json",
+                data: data,
+                dataType: "json",
+                success: function (data) {
+                    endTime = new Date();
+                    data = $.toJSON(data);
+                    $("#spHTDay").html("K线图数据获取成功，耗时：" + (endTime - beginTime) + "ms" + "  数据大小:" + data.length);
+                    $("#dvHTDay").html(data);
+                },
+                eror: function () {
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="box fl">
+        <div class="head">掌上财富</div>
+        <div class="operabox">
+            <div class="operaitem">
+                <div>
+                    <input onclick="valid()" type="button" value="用户认证" /><span id="spValid" class="time"></span>
+                </div>
+            </div>
+            <div class="operaitem">
+                <div>
+                    <input id="btnLogin" onclick="getMarket()" type="button" value="行情登录" disabled="disabled" /><span id="spMarket" class="time"></span>
+                </div>
+            </div>
+            <div class="operaitem">
+                <div>
+                    <input id="btnSbReport" onclick="getSbReport()" type="button" value="行情数据" /><span id="spSbReport" class="time"></span>
+                </div>
+                <div id="dvSbReport" class="content"></div>
+            </div>
+            <!--<div class="operaitem">
+                <div>
+                    <input id="btnTreqSbList" onclick="getTreqSbList()" type="button" value="行情报价表数据"/><span id="spTreqSbList" class="time"></span>
+                </div>
+                <div id="dvTreqSbList" class="content"></div>
+            </div>-->
+            <div class="operaitem">
+                <div>
+                    <input id="btnTrend" onclick="getTrend()" type="button" value="走势图数据" /><span id="spTrend" class="time"></span>
+                </div>
+                <div id="dvTrend" class="content"></div>
+            </div>
+            <div class="operaitem">
+                <div>
+                    <input id="btnDay" onclick="getDay()" type="button" value="K线图数据" /><span id="spDay" class="time"></span>
+                </div>
+                <div id="dvDay" class="content"></div>
+            </div>
+        </div>
+    </div>
+    <div class="box fl ml10">
+        <div class="head">华泰证券</div>
+        <div class="operabox">
+            <div class="operaitem">
+                <div>
+                    <!--<div class="inputbox">
+                        <input id="txtStockList" value="SH:000001|SZ:399001|SH:000010|SH:000016|SH:000300|SZ:399005|SZ:399006|SZ:399300" style="width: 550px" />
+                    </div>-->
+                    <input onclick="getHTMarket()" type="button" value="行情数据" /><span id="spHTMarket" class="time"></span>
+                    <div id="dvHTMarket" class="content"></div>
+                </div>
+            </div>
+            <div class="operaitem">
+                <div>
+                    <div class="inputbox">
+                        <input id="txtStockID" value="SH:000001" style="width: 550px" />
+                    </div>
+                    <div>
+                        <input onclick="getHTTrend()" type="button" value="走势图数据" /><span id="spHTTrend" class="time"></span>
+                        <div id="dvHTTrend" class="content"></div>
+                    </div>
+                    <div>
+                        <input onclick="getHTDay()" type="button" value="K线图数据" /><span id="spHTDay" class="time"></span>
+                        <div id="dvHTDay" class="content"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
