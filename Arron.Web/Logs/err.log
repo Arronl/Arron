@@ -1,0 +1,6 @@
+2014-05-07 11:15:29,611 [7396] ERROR Arron.Web.Default - 未将对象引用设置到对象的实例。
+System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 Arron.Web.Default.Page_Load(Object sender, EventArgs e) 位置 d:\Documents\Visual Studio 2012\Projects\Arron\Arron.Web\Default.aspx.cs:行号 18
+2014-05-07 11:16:03,854 [3992] ERROR Arron.Web.Default - 未将对象引用设置到对象的实例。
+System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 Arron.Web.Default.Page_Load(Object sender, EventArgs e) 位置 d:\Documents\Visual Studio 2012\Projects\Arron\Arron.Web\Default.aspx.cs:行号 18

@@ -1,0 +1,9 @@
+d:\documents\visual studio 2012\Projects\Arron\Arron.Console\bin\Debug\Arron.Console.exe.config
+d:\documents\visual studio 2012\Projects\Arron\Arron.Console\bin\Debug\Arron.Console.exe
+d:\documents\visual studio 2012\Projects\Arron\Arron.Console\bin\Debug\Arron.Console.pdb
+d:\documents\visual studio 2012\Projects\Arron\Arron.Console\bin\Debug\log4net.dll
+d:\documents\visual studio 2012\Projects\Arron\Arron.Console\obj\Debug\Arron.Console.exe
+d:\documents\visual studio 2012\Projects\Arron\Arron.Console\obj\Debug\Arron.Console.pdb
+d:\documents\visual studio 2012\Projects\Arron\Arron.Console\bin\Debug\Config\log4net.config
+d:\documents\visual studio 2012\Projects\Arron\Arron.Console\bin\Debug\Config\log4net.unix.config
+d:\documents\visual studio 2012\Projects\Arron\Arron.Console\obj\Debug\Arron.Console.csprojResolveAssemblyReference.cache
