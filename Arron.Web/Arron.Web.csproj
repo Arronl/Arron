@@ -73,6 +73,7 @@
     <Content Include="BLL\log4net.dll" />
     <Content Include="css\site.css" />
     <Content Include="Default.aspx" />
+    <Content Include="Image\system.png" />
     <Content Include="Index1.html" />
     <Content Include="js\AppConfig.js" />
     <Content Include="js\AuthNet.js" />
@@ -741,6 +742,7 @@
     <Content Include="js\ueditor1_3_6-src\_src\ui\uiutils.js" />
     <Content Include="Regex.html" />
     <Content Include="Web.config" />
+    <Content Include="WebNotifications.html" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Default.aspx.cs">

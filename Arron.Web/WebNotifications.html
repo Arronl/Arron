@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <script type="text/javascript">
+        var miao = 10;
+        function init() {
+            if (window.webkitNotifications) {
+                window.webkitNotifications.requestPermission();
+            }
+            else {
+                alert("您的浏览器不支持桌面通知！建议使用猎豹，360等浏览器使用此功能。");
+            }
+            if ($("#zmtz").attr("checked") != "checked") {
+                $("#zmtz").attr("checked", "checked");
+            }
+            else {
+                $("#zmtz").removeAttr("checked");
+            }
+        }
+        function notify(sicon, stitle, sbody) {
+            var icon = sicon;
+            var title = stitle;
+            var body = sbody;
+
+            if (window.webkitNotifications) {
+                if (window.webkitNotifications.checkPermission() == 0) {
+                    var popup = window.webkitNotifications.createNotification(icon, title, body);
+                    popup.ondisplay = function (event) {
+                        setTimeout(function () {
+                            event.currentTarget.cancel();
+                        }, miao * 1000);
+                    }
+                    popup.show();
+                } else {
+                    window.webkitNotifications.requestPermission();
+                    return;
+                }
+            }
+        }
+
+        function Show() {
+            var imgSys = document.getElementById("imgSys");
+            notify(imgSys.src, "测试数据", "Hello Word！");
+        }
+
+        window.onload = function () {
+            init();
+        };
+    </script>
+</head>
+<body>
+    <img id="imgSys" src="Image/system.png" />
+    <input type="button" value="显示桌面通知" onclick="Show()" />
+</body>
+</html>
