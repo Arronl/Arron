@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>正则表达式</title>
+    <script src="js/jquery-1.7.1.min.js"></script>
+    <style type="text/css">
+        .item{padding:10px;}
+        .txt{border:solid 1px #e0d8d8;width:300px;}
+    </style>
+    <script type="text/javascript">
+        var ListReg = {
+            Ignore: /<div>.*?<\/div>/g
+        };
+        function Excute(type)
+        {
+            var reg,txtStrID,lblResultID;
+            switch (type)
+            {
+                case 'Ignore': {
+                    reg = ListReg.Ignore;
+                    txtStrID = 'txtStrIgnore';
+                    lblResultID = 'lblResultIgnore';
+                } break;
+            }
+            var lblResult = document.getElementById(lblResultID);
+            var str = document.getElementById(txtStrID).value;
+            $(lblResult).text(str.match(reg).join(','));
+        }
+    </script>
+</head>
+<body>
+    <div class="item">
+        <div>忽略优先或非贪婪模式：在可匹配可不匹配的情况下，总会先忽略匹配，只有在由忽略优先量词修饰的子表达式，必须进行匹配才能使整个表达式匹配成功时，才会进行匹配。</div>
+        <div>&lt;div&gt; .*?&lt;/div&gt; </div>
+        <div>
+            <input id="txtStrIgnore" type="text" value="<div>aaa</div><div>bbb</div>" class="txt" />
+            <input type="button" value="匹配" onclick="Excute('Ignore')" />
+        </div>
+        <div id="lblResultIgnore"></div>
+        <span></span>
+    </div>
+</body>
+</html>

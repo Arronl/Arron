@@ -739,6 +739,7 @@
     <Content Include="js\ueditor1_3_6-src\_src\ui\ui.js" />
     <Content Include="js\ueditor1_3_6-src\_src\ui\uibase.js" />
     <Content Include="js\ueditor1_3_6-src\_src\ui\uiutils.js" />
+    <Content Include="Regex.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
