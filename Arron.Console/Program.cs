@@ -30,8 +30,35 @@ namespace Arron.Console
             //var data = AppendOpenID(str, "dfsfasd3245");
             //var a = 1;
 
-            var a = 200 / (90 * 0.01M);
-            System.Console.WriteLine(a.ToString());
+            //var a = 200 / (90 * 0.01M);
+            //System.Console.WriteLine(a.ToString());
+
+            byte split = 0x01;
+            string Seesion = "110";
+            string Function = "201";
+
+            System.IO.MemoryStream ms = new System.IO.MemoryStream();
+            byte[] sessionBytes = System.Text.Encoding.ASCII.GetBytes(Seesion);
+            ms.Write(sessionBytes, 0, sessionBytes.Length);
+            ms.WriteByte(split);
+
+            byte[] functionBytes = System.Text.Encoding.ASCII.GetBytes(Function);
+            ms.Write(functionBytes, 0, functionBytes.Length);
+            ms.WriteByte(split);
+
+            byte[] _split = Encoding.ASCII.GetBytes("\r\n\r\n");
+            ms.Write(_split, 0, _split.Length);
+            ms.WriteByte(split);
+
+            _split = Encoding.ASCII.GetBytes("13");
+            ms.Write(_split, 0, _split.Length);
+
+            var array = ms.ToArray();
+            foreach (var item in array)
+            {
+                System.Console.WriteLine(item);
+            }
+
             System.Console.ReadLine();
         }
 
