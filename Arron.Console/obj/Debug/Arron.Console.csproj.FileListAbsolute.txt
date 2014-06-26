@@ -6,3 +6,6 @@ d:\documents\visual studio 2012\Projects\Arron\Arron.Console\obj\Debug\Arron.Con
 d:\documents\visual studio 2012\Projects\Arron\Arron.Console\obj\Debug\Arron.Console.pdb
 d:\documents\visual studio 2012\Projects\Arron\Arron.Console\bin\Debug\Config\log4net.config
 d:\documents\visual studio 2012\Projects\Arron\Arron.Console\bin\Debug\Config\log4net.unix.config
+F:\Project\Arron\Arron.Console\bin\Debug\Arron.Console.exe.config
+F:\Project\Arron\Arron.Console\obj\Debug\Arron.Console.exe
+F:\Project\Arron\Arron.Console\obj\Debug\Arron.Console.pdb
