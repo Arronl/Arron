@@ -27,7 +27,7 @@
                 isLogin = true;
                 var xmlobject = (new DOMParser()).parseFromString(data.Data, "text/xml");
                 var xml = $(xmlobject);
-                
+
                 //User  /UserR R/  /Ser S/ 
                 var u = window.XmlHelper(xmlobject, "User");
                 var r = window.XmlHelper(xmlobject, "UserR MR R");
