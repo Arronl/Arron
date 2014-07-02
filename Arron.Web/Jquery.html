@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <script type="text/javascript">
+        var jQuery = function (msg) {
+            return jQuery.prototype.init(msg);
+        };
+        jQuery.prototype.init = function (msg) {
+            this.Content = msg;
+            return this;
+        };
+        jQuery.prototype.Content = "Base Message";
+        jQuery.prototype.show = function () {
+            alert(this.Content);
+        }
+        //jQuery.prototype.init.prototype = jQuery.prototype;
+
+        var a = jQuery("aaa");
+
+        function test()
+        {
+            a.show();
+        }
+    </script>
+</head>
+<body>
+    <input type="button" value="测试" onclick="test()" />
+</body>
+</html>

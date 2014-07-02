@@ -4,3 +4,10 @@ d:\documents\visual studio 2012\Projects\Arron\Arron.Web\bin\log4net.dll
 d:\documents\visual studio 2012\Projects\Arron\Arron.Web\obj\Debug\Arron.Web.dll
 d:\documents\visual studio 2012\Projects\Arron\Arron.Web\obj\Debug\Arron.Web.pdb
 d:\documents\visual studio 2012\Projects\Arron\Arron.Web\obj\Debug\Arron.Web.csprojResolveAssemblyReference.cache
+F:\Project\Arron\Arron.Web\bin\Arron.Web.dll.config
+F:\Project\Arron\Arron.Web\bin\Arron.Web.dll
+F:\Project\Arron\Arron.Web\bin\Arron.Web.pdb
+F:\Project\Arron\Arron.Web\bin\log4net.dll
+F:\Project\Arron\Arron.Web\obj\Debug\Arron.Web.csprojResolveAssemblyReference.cache
+F:\Project\Arron\Arron.Web\obj\Debug\Arron.Web.dll
+F:\Project\Arron\Arron.Web\obj\Debug\Arron.Web.pdb
