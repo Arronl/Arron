@@ -19,10 +19,25 @@
 
         var a = jQuery("aaa");
 
-        function test()
-        {
+        function test() {
             a.show();
         }
+
+        Function.prototype.partial = function () {
+            var fn = this, args = Array.prototype.slice.call(arguments);
+            return function () {
+                var arg = 0;
+                for (var i = 0; i < arguments.length && i < args.length; i++) {
+                    if (args[i] === undefined) {
+                        args[i] = arguments[arg++];
+                    }
+                }
+                console.log(args);
+                return fn.apply(this, args);
+            };
+        }
+        var aa = test.partial(1, "a", undefined, 2);
+        aa(1, "a", undefined, 2);
     </script>
 </head>
 <body>

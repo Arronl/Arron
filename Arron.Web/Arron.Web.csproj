@@ -61,6 +61,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="2048.html" />
     <Content Include="Backbone\cube.html" />
     <Content Include="Backbone\Index.html" />
     <Content Include="Backbone\js\backbone.js" />
@@ -68,6 +69,7 @@
     <Content Include="Backbone\js\iscroll.js" />
     <Content Include="Backbone\js\jquery-1.11.1.js" />
     <Content Include="Backbone\js\underscore.js" />
+    <Content Include="Backbone\User.html" />
     <Content Include="Backbone\js\zepto.js" />
     <Content Include="Backbone\js\zepto.require.js" />
     <Content Include="BLL\log4net.dll" />
@@ -742,8 +744,10 @@
     <Content Include="js\ueditor1_3_6-src\_src\ui\uibase.js" />
     <Content Include="js\ueditor1_3_6-src\_src\ui\uiutils.js" />
     <Content Include="Regex.html" />
+    <Content Include="Strict.html" />
     <Content Include="Web.config" />
     <Content Include="WebNotifications.html" />
+    <Content Include="跑马灯.html" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Default.aspx.cs">
