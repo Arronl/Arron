@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>JavaScript 鏃犵紳涓婁笅宸﹀彸婊氬姩鍔犲畾楂樺畾瀹藉仠椤挎晥�?鍏煎ie/ff)</title>
+</head>
+<body>
+<script type="text/javascript">
+var $ = function (id) {
+    return "string" == typeof id ? document.getElementById(id) : id;
+};
+
+var Class = {
+  create: function() {
+    return function() {
+      this.initialize.apply(this, arguments);
+    }
+  }
+}
+
+Object.extend = function(destination, source) {
+    for (var property in source) {
+        destination[property] = source[property];
+    }
+    return destination;
+}
+
+function addEventHandler(oTarget, sEventType, fnHandler) {
+    if (oTarget.addEventListener) {
+        oTarget.addEventListener(sEventType, fnHandler, false);
+    } else if (oTarget.attachEvent) {
+        oTarget.attachEvent("on" + sEventType, fnHandler);
+    } else {
+        oTarget["on" + sEventType] = fnHandler;
+    }
+};
+
+
+var Scroller = Class.create();
+Scroller.prototype = {
+  initialize: function(idScroller, idScrollMid, options) {
+    var oThis = this, oScroller = $(idScroller), oScrollMid = $(idScrollMid);
+    
+    this.SetOptions(options);
+    this.Side = this.options.Side || ["up"];//鏂瑰�?
+    this.scroller = oScroller;            //瀵硅�?
+    this.speed = this.options.Speed;    //閫熷�?
+    this.timer = null;                    //鏃堕�?
+    this.pauseHeight = 0;                //瀹氶�?
+    this.pauseWidth = 0;                //瀹氬�?
+    this.pause = 0;                        //瀹氶�?�?
+    this.side = 0;                        //鍙傛�?
+    
+    //鐢ㄤ簬涓婁笅婊氬�?
+    this.heightScroller = parseInt(oScroller.style.height) || oScroller.offsetHeight;
+    this.heightList = oScrollMid.offsetHeight;
+    
+    //鐢ㄤ簬宸﹀彸婊氬姩
+    this.widthScroller = parseInt(oScroller.style.width) || oScroller.offsetWidth;
+    this.widthList = oScrollMid.offsetWidth;
+    
+    //js鍙栦笉鍒癱ss璁剧疆鐨刪eight鍜寃idth
+    
+    oScroller.style.overflow = "hidden";
+    oScrollMid.appendChild(oScrollMid.cloneNode(true));
+    oScrollMid.appendChild(oScrollMid.cloneNode(true));
+    
+    addEventHandler(oScroller, "mouseover", function() { oThis.Stop(); });
+    addEventHandler(oScroller, "mouseout", function() { oThis.Start(); });
+    
+    this.Start();
+  },
+  //璁剧疆榛樿灞炴�?
+  SetOptions: function(options) {
+    this.options = {//榛樿鍊?
+      Step:            1,//姣忔鍙樺寲鐨刾x�?
+      Speed:        20,//閫熷�?瓒婂ぇ瓒婃參)
+      Side:            ["up"],//婊氬姩鏂瑰悜:"up"鏄笂锛?down"鏄笅锛?left"鏄乏锛?right"鏄�?
+      PauseHeight:    0,//闅斿楂樺仠涓€�?
+      PauseWidth:    0,//闅斿瀹藉仠涓€娆?
+      //褰撲笂涓嬪拰宸﹀彸涓€璧蜂娇鐢ㄦ椂蹇呴』璁剧疆PauseHeight鍜孭auseWidth鏉ヨ缃浆鍚戜綅缃?
+      PauseStep:    1000//鍋滈】鏃堕棿(PauseHeight鎴朠auseWidth澶т簬0璇ュ弬鏁版墠鏈夋�?
+    };
+    Object.extend(this.options, options || {});
+  }, 
+  //杞�?
+  Turn: function() {
+    //閫氳繃璁剧疆鏂瑰悜鏁扮粍鐨勬帓鍒楁潵杞�?
+    this.Side.push(this.Side.shift().toLowerCase());
+  },
+  //涓婁笅婊氬姩
+  ScrollUpDown: function() {
+    this.pause = this.pauseHeight;
+    this.scroller.scrollTop = this.GetScroll(this.scroller.scrollTop, this.heightScroller, this.heightList, this.options.PauseHeight);
+    this.pauseHeight = this.pause;
+    
+    var oThis = this;
+    this.timer = window.setTimeout(function(){ oThis.Start(); }, this.speed);
+  },
+  //宸﹀彸婊氬姩
+  ScrollLeftRight: function() {
+    this.pause = this.pauseWidth;
+    //娉ㄦ�?scrollLeft瓒呰�?400浼氳嚜鍔ㄥ彉�?400 娉ㄦ剰闀垮害
+    this.scroller.scrollLeft = this.GetScroll(this.scroller.scrollLeft, this.widthScroller, this.widthList, this.options.PauseWidth);
+    this.pauseWidth = this.pause;
+    
+    var oThis = this;
+    this.timer = window.setTimeout(function(){ oThis.Start(); }, this.speed);
+  },
+  //鑾峰彇璁剧疆婊氬姩鏁版嵁
+  GetScroll: function(iScroll, iScroller, iList, iPause) {
+    var iStep = this.options.Step * this.side;
+    
+    if(this.side > 0){
+        if(iScroll >= (iList * 2 - iScroller)){ iScroll -= iList; }
+    } else {
+        if(iScroll <= 0){ iScroll += iList; }
+    }
+    
+    this.speed = this.options.Speed;
+    if(iPause > 0){
+        if(Math.abs(this.pause) >= iPause){
+            this.speed = this.options.PauseStep; this.pause = iStep = 0; this.Turn();
+        } else {
+            this.pause += iStep;
+        }
+    }
+    
+    return (iScroll + iStep);
+  },
+  //寮€�?
+  Start: function() {    
+    //鏂瑰悜璁剧疆
+    switch (this.Side[0].toLowerCase()) {
+        case "right" :
+            if(this.widthList < this.widthScroller) return;
+            this.side = -1;
+            this.ScrollLeftRight();
+            break;
+        case "left" :
+            if(this.widthList < this.widthScroller) return;
+            this.side = 1;
+            this.ScrollLeftRight();
+            break;
+        case "down" :
+            if(this.heightList < this.heightScroller) return;
+            this.side = -1;
+            this.ScrollUpDown();
+            break;
+        case "up" :
+        default :
+            if(this.heightList < this.heightScroller) return;
+            this.side = 1;
+            this.ScrollUpDown();
+    }
+  },
+  //鍋滄�?
+  Stop: function() {
+    clearTimeout(this.timer);
+  }
+};
+
+window.onload = function(){
+    new Scroller("idScroller", "idScrollMid",{ Side:["left"], PauseHeight:50, PauseWidth:400 });
+}
+</script>
+<style>
+.Scroller {line-height:50px; border:1px solid #000000; padding:0px 10px; height:50px; width:400px;}
+.Scroller *{margin:0px; padding:0px;}
+.ScrollMid {float:left;}
+.ScrollMid ul{width:800px;float:left;}
+.ScrollMid li{list-style:none; float:left; width:390px; padding-left:10px;}
+</style>
+<div id="idScroller" class="Scroller" style="width:400px; height:50px;">
+  <div style="width:1600px">
+    <div id="idScrollMid" class="ScrollMid">
+      <ul>
+        <li>
+          <div>wegfaighaewg</div>
+        </li>
+        <li>
+          <div>wegfaighaewg</div>
+        </li>
+        <li>
+          <div>wegfaighaewg</div>
+        </li>
+        <li>
+          <div>wegfaighaewg</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div id="test"></div>
+</body>
+</html>
