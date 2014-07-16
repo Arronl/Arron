@@ -65,6 +65,7 @@
     <Content Include="2048\2048.js" />
     <Content Include="2048\index.css" />
     <Content Include="2048\index.html" />
+    <Content Include="AutoHeight.html" />
     <Content Include="Backbone\cube.html" />
     <Content Include="Backbone\Index.html" />
     <Content Include="Backbone\js\backbone.js" />
