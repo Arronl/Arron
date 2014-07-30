@@ -1,4 +1,125 @@
-﻿body{ margin: 0;padding: 0;background: #faf8ef;color: #776e65;font-family: "Microsoft YaHei", sans-serif, 'Microsoft Sans Serif','Microsoft JhengHei UI';font-size: 18px;}
-.main{margin:0 auto;width:500px;}
-.main h1{float:left;font-size:80px;margin-top:0;font-weight:bold;}
-.main .score_box{float:right;}
+﻿* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #D6EFF6;
+    color: #4F90D4;
+    font-family: "Microsoft YaHei", sans-serif, 'Microsoft Sans Serif','Microsoft JhengHei UI';
+    font-size: 18px;
+}
+
+.main {
+    margin: 0 auto;
+    width: 500px;
+}
+
+    .main h1 {
+        float: left;
+        font-size: 80px;
+        margin-top: 0;
+        font-weight: bold;
+    }
+
+    .main .score_box {
+        float: right;
+    }
+
+        .main .score_box .source_current, .main .score_box .source_best {
+            display: inline-block;
+            padding: 15px 25px;
+            height: 25px;
+            line-height: 47px;
+            background-color: #75B1E3;
+            border-radius: 3px;
+            color: #fff;
+            text-align: center;
+            position: relative;
+            padding: 15px 25px;
+            font-size: 25px;
+            margin-top: 8px;
+        }
+
+            .main .score_box .source_current:after, .main .score_box .source_best:after {
+                line-height: 13px;
+                left: 0;
+                position: absolute;
+                top: 10px;
+                font-size: 13px;
+                width: 100%;
+                text-transform: uppercase;
+            }
+
+            .main .score_box .source_current:after {
+                content: "Score";
+            }
+
+            .main .score_box .source_best:after {
+                content: "Best";
+            }
+
+        .main .score_box .score_addition {
+            background-color: transparent;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            color: #4F90D4;
+            line-height: 25px;
+            -webkit-animation: move-up 600ms ease-in;
+            -moz-animation: move-up 600ms ease-in;
+            animation: move-up 600ms ease-in;
+        }
+
+.head .top:after {
+    clear: both;
+    content: "";
+    display: block;
+}
+
+.head .operator {
+    text-align: right;
+    margin-bottom: 40px;
+}
+
+    .head .operator .newgame {
+        display: inline-block;
+        padding: 0 20px;
+        line-height: 40px;
+        background-color: #4F90D4;
+        border-radius: 6px;
+        color: #fff;
+        text-align: center;
+    }
+
+.game_container {
+    background-color: #4F90D4;
+    width: 100%;
+    border-radius: 6px;
+    height: 500px;
+}
+
+    .game_container .grid {
+        padding: 15px 0 0 15px;
+    }
+
+        .game_container .grid .grid_row {
+            margin-bottom: 15px;
+        }
+
+            .game_container .grid .grid_row:after {
+                clear: both;
+                content: "";
+                display: block;
+            }
+
+            .game_container .grid .grid_row .grid_cell {
+                width: 106.25px;
+                height: 106.25px;
+                background-color: #75B1E3;
+                float: left;
+                border-radius: 6px;
+                margin-right: 15px;
+            }
