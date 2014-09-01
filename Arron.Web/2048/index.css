@@ -27,7 +27,6 @@ body {
     .main .score_box {
         float: right;
     }
-
         .main .score_box .source_current, .main .score_box .source_best {
             display: inline-block;
             padding: 15px 25px;
@@ -64,15 +63,30 @@ body {
         .main .score_box .score_addition {
             background-color: transparent;
             position: absolute;
+            bottom:0;
             left: 0;
-            bottom: 0;
             color: #4F90D4;
             line-height: 25px;
-            -webkit-animation: move-up 600ms ease-in;
-            -moz-animation: move-up 600ms ease-in;
-            animation: move-up 600ms ease-in;
+            font-weight:bold;
+            -webkit-animation: scoremove 500ms ease-in;
+            -moz-animation: scoremove 500ms ease-in;
+            animation: scoremove 500ms ease-in;
+            -webkit-animation-fill-mode: both;
+            -moz-animation-fill-mode: both;
+            animation-fill-mode: both;
         }
-
+@-webkit-keyframes scoremove {
+0%   {bottom:0px;opacity: 1;}
+100% {bottom:50px;opacity: 0;}
+}
+@-moz-keyframes scoremove {
+0%   {bottom:0px;opacity: 1;}
+100% {bottom:50px;opacity: 0;}
+}
+@keyframes scoremove {
+0%   {bottom:0px;opacity: 1;}
+100% {bottom:50px;opacity: 0;}
+}
 .head .top:after {
     clear: both;
     content: "";
@@ -99,16 +113,20 @@ body {
     width: 100%;
     border-radius: 6px;
     height: 500px;
+    position:relative;
+    box-sizing: border-box;
+    padding: 15px;
 }
 
     .game_container .grid {
-        padding: 15px 0 0 15px;
+        position:absolute;
+        z-index:1;
     }
 
         .game_container .grid .grid_row {
             margin-bottom: 15px;
         }
-
+        .game_container .grid .grid_row:last-child{margin-bottom:0;}
             .game_container .grid .grid_row:after {
                 clear: both;
                 content: "";
@@ -122,4 +140,78 @@ body {
                 float: left;
                 border-radius: 6px;
                 margin-right: 15px;
-            }
+            }.game_container .grid .grid_row .grid_cell:last-child{margin-right: 0;}
+.title_container{position:absolute;z-index:2}
+.title_container .title{top:0;left:0;position: absolute;transition: transform 100ms ease-in-out 0s;}
+.title_new .title_inner{ -webkit-animation: appear 200ms ease 100ms;
+        -moz-animation: appear 200ms ease 100ms;
+        animation: appear 200ms ease 100ms;
+        -webkit-animation-fill-mode: backwards;
+        -moz-animation-fill-mode: backwards;
+        animation-fill-mode: backwards;}
+@-webkit-keyframes appear {
+        0% {
+            opacity: 0;
+            -webkit-transform: scale(0);
+            -moz-transform: scale(0);
+            transform: scale(0);
+        }
+
+        100% {
+            opacity: 1;
+            -webkit-transform: scale(1);
+            -moz-transform: scale(1);
+            transform: scale(1);
+        }
+    }
+
+    @-moz-keyframes appear {
+        0% {
+            opacity: 0;
+            -webkit-transform: scale(0);
+            -moz-transform: scale(0);
+            transform: scale(0);
+        }
+
+        100% {
+            opacity: 1;
+            -webkit-transform: scale(1);
+            -moz-transform: scale(1);
+            transform: scale(1);
+        }
+    }
+
+    @keyframes appear {
+        0% {
+            opacity: 0;
+            -webkit-transform: scale(0);
+            -moz-transform: scale(0);
+            transform: scale(0);
+        }
+
+        100% {
+            opacity: 1;
+            -webkit-transform: scale(1);
+            -moz-transform: scale(1);
+            transform: scale(1);
+        }
+    }
+.title_container .title,.title_container .title_inner{ width: 106.25px;height: 106.25px;line-height:106.25px;text-align:center;border-radius: 3px;}
+.tile_1 .title_inner{background-color:#faf7eb}
+
+.position_1_1{}
+.position_1_2{transform:translate(121px,0)}
+.position_1_3{transform:translate(242px,0)}
+.position_1_4{transform:translate(363px,0)}
+.position_2_1{transform:translate(0,121px)}
+.position_2_2{transform:translate(121px,121px)}
+.position_2_3{transform:translate(242px,121px)}
+.position_2_4{transform:translate(363px,121px)}
+.position_3_1{transform:translate(0,242px)}
+.position_3_2{transform:translate(121px,242px)}
+.position_3_3{transform:translate(242px,242px)}
+.position_3_4{transform:translate(363px,242px)}
+.position_4_1{transform:translate(0,363px)}
+.position_4_2{transform:translate(121px,363px)}
+.position_4_3{transform:translate(242px,363px)}
+.position_4_4{transform:translate(363px,363px)}

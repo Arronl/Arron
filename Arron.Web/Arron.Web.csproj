@@ -65,6 +65,7 @@
     <Content Include="2048\2048.js" />
     <Content Include="2048\index.css" />
     <Content Include="2048\index.html" />
+    <Content Include="AnimationMenu.html" />
     <Content Include="AutoHeight.html" />
     <Content Include="Backbone\cube.html" />
     <Content Include="Backbone\Index.html" />
@@ -79,7 +80,13 @@
     <Content Include="BLL\log4net.dll" />
     <Content Include="css\site.css" />
     <Content Include="Default.aspx" />
+    <Content Include="Image\focus.png" />
+    <Content Include="Image\news.png" />
+    <Content Include="Image\news2.png" />
+    <Content Include="Image\news_gray.png" />
+    <Content Include="Image\paper.png" />
     <Content Include="Image\system.png" />
+    <Content Include="Image\weibo.png" />
     <Content Include="Index1.html" />
     <Content Include="Jquery.html" />
     <Content Include="js\AppConfig.js" />
