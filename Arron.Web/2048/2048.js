@@ -1,1 +1,3 @@
-﻿
+﻿var game = function () {
+
+};

@@ -33,33 +33,25 @@ namespace Arron.Console
             //var a = 200 / (90 * 0.01M);
             //System.Console.WriteLine(a.ToString());
 
-            byte split = 0x01;
-            string Seesion = "110";
-            string Function = "201";
+            System.Console.WriteLine("Begin");
+            Task<int> task = Test();
+            System.Console.WriteLine("End");
 
-            System.IO.MemoryStream ms = new System.IO.MemoryStream();
-            byte[] sessionBytes = System.Text.Encoding.ASCII.GetBytes(Seesion);
-            ms.Write(sessionBytes, 0, sessionBytes.Length);
-            ms.WriteByte(split);
-
-            byte[] functionBytes = System.Text.Encoding.ASCII.GetBytes(Function);
-            ms.Write(functionBytes, 0, functionBytes.Length);
-            ms.WriteByte(split);
-
-            byte[] _split = Encoding.ASCII.GetBytes("\r\n\r\n");
-            ms.Write(_split, 0, _split.Length);
-            ms.WriteByte(split);
-
-            _split = Encoding.ASCII.GetBytes("13");
-            ms.Write(_split, 0, _split.Length);
-
-            var array = ms.ToArray();
-            foreach (var item in array)
+            Task tsk = task.ContinueWith((t) =>
             {
-                System.Console.WriteLine(item);
-            }
+                System.Console.WriteLine("Result:{0}", t.Result);
+            });
+
+            System.Console.WriteLine("new task");
+            System.Threading.Thread.Sleep(1000);
 
             System.Console.ReadLine();
+        }
+
+        static async Task<int> Test()
+        {
+            await Task.Run(() => { System.Console.WriteLine("awiat"); });
+            return 100;
         }
 
         static string AppendOpenID(string data, string openID)

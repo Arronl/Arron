@@ -14,4 +14,3 @@ F:\Project\Arron\Arron.Console\bin\Debug\Config\log4net.unix.config
 F:\Project\Arron\Arron.Console\bin\Debug\Arron.Console.exe
 F:\Project\Arron\Arron.Console\bin\Debug\Arron.Console.pdb
 F:\Project\Arron\Arron.Console\bin\Debug\log4net.dll
-F:\Project\Arron\Arron.Console\obj\Debug\Arron.Console.csprojResolveAssemblyReference.cache
